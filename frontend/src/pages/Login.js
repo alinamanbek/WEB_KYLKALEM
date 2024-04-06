@@ -1,62 +1,7 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import { useNavigate } from 'react-router-dom';
-// import './css/Login.css'; // Import the CSS file
-
-// const LoginForm = () => {
-//   const [formData, setFormData] = useState({
-//     username: '',
-//     password: '',
-//   });
-//   const [error, setError] = useState(''); // State to hold error message
-//   const navigate = useNavigate(); // Initialize useNavigate
-
-//   const handleChange = (e) => {
-//     setFormData({ ...formData, [e.target.name]: e.target.value });
-//   };
-
-//   const handleSubmit = async (e) => {
-//     e.preventDefault();
-//     try {
-//       const res = await axios.post('http://localhost:8000/api/login/', formData);
-//       console.log(res.data);
-//       // If login successful, redirect based on userType
-//       const { userType } = res.data; // Assuming your response contains userType
-//       if (userType === 'painter') {
-//         navigate('/painter-page');
-//       } else if (userType === 'admin') {
-//         navigate('/admin-page');
-//       } else {
-//         navigate('/main-page'); // Redirect to main page for customers
-//       }
-//     } catch (error) {
-//       console.error(error.response.data);
-//       // Set error message based on response status
-//       if (error.response.status === 401) {
-//         setError('Invalid username or password. Please try again.');
-//       } else {
-//         setError('An error occurred. Please try again later.');
-//       }
-//     }
-//   };
-
-//   return (
-//     <div className="login-container">
-//       <form className="login-form" onSubmit={handleSubmit}>
-//         <div className="login-heading">Log in</div>
-//         {error && <div className="error-message">{error}</div>} {/* Display error message */}
-//         <input type="text" name="username" placeholder="Username" onChange={handleChange} />
-//         <input type="password" name="password" placeholder="Password" onChange={handleChange} />
-//         <button type="submit">Login</button>
-//         <div className="login-links">
-//           <a href="/forgot-password">Forgot Password?</a> {/* Forgot Password link */}
-//           <span> | </span> {/* Separator */}
-//           <a href="/register">Register</a> {/* Registration link */}
-//         </div>
-//       </form>
-//     </div>
-//   );import React, { useState } from 'react';
 import React from 'react';
+import { Link } from 'react-router-dom'; // Assuming you're using React Router for navigation
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 class Login extends React.Component {
     constructor(props) {
@@ -66,6 +11,7 @@ class Login extends React.Component {
                 username: '',
                 password: '',
             },
+            showPassword: false,
             error: '',
         };
     }
@@ -116,24 +62,38 @@ class Login extends React.Component {
         this.handleLogin();
     };
 
+    togglePasswordVisibility = () => {
+        this.setState(prevState => ({
+            showPassword: !prevState.showPassword
+        }));
+    };
+
     render() {
-        const { formData, error } = this.state;
+        const { formData, error, showPassword } = this.state;
 
         return (
-            <div>
+            <div className="container mt-5 text-center">
                 <h2>Login</h2>
-                {error && <div>{error}</div>}
-                <form onSubmit={this.handleSubmit}>
-                    <div>
-                        <label htmlFor="username">Username:</label>
-                        <input type="text" id="username" name="username" value={formData.username} onChange={this.handleChange} />
+                {error && <div className="alert alert-danger" role="alert">{error}</div>}
+                <div className="row justify-content-center">
+                    <div className="col-md-6">
+                        <form onSubmit={this.handleSubmit}>
+                            <div className="form-group">
+                                <input type="text" className="form-control" name="username" placeholder="Username" value={formData.username} onChange={this.handleChange} />
+                            </div>
+                            <div className="form-group">
+                                <div className="input-group">
+                                    <input type={showPassword ? 'text' : 'password'} className="form-control" name="password" placeholder="Password" value={formData.password} onChange={this.handleChange} />
+                                    <button className="btn btn-outline-secondary" type="button" onClick={this.togglePasswordVisibility}>
+                                        <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                                    </button>
+                                </div>
+                            </div>
+                            <button type="submit" className="btn btn-primary">Login</button>
+                        </form>
+                        <p className="mt-3">Don't have an account? <Link to="/register">Register here</Link></p>
                     </div>
-                    <div>
-                        <label htmlFor="password">Password:</label>
-                        <input type="password" id="password" name="password" value={formData.password} onChange={this.handleChange} />
-                    </div>
-                    <button type="submit">Login</button>
-                </form>
+                </div>
             </div>
         );
     }

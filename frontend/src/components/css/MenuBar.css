@@ -1,0 +1,42 @@
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 20px; /* Adjust as needed */
+}
+
+.logo {
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Adjust size as needed */
+}
+
+.text {
+    font-family: 'Frank Ruhl Libre', sans-serif;
+    font-size: 24px; /* Adjust font size as needed */
+    margin-bottom: 20px; /* Add spacing between text and menu */
+}
+
+.menu {
+    font-family: 'Spectral', serif;
+    margin-top: 20px; /* Add margin-top to create space between text and menu */
+    font-size: 20px; /* Apply font size to all text in the menu */
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.menu ul li {
+    display: inline-block;
+    margin-right: 55px; /* Adjust spacing between menu items */
+}
+
+.menu ul li a {
+    color: black; /* Set text color to black */
+    text-decoration: none; /* Remove underline */
+    font-family: 'Frank Ruhl Libre', serif; /* Apply custom font family to menu text */
+}
+
+.menu ul li:last-child {
+    margin-right: 10px; /* Remove margin-right from the last menu item */
+}
