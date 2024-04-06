@@ -1,0 +1,502 @@
+// import React, { useState } from 'react';
+// import axios from 'axios';
+// import { useNavigate } from 'react-router-dom';
+// import './css/Login.css'; // Import the CSS file
+
+// const LoginForm = () => {
+//   const [formData, setFormData] = useState({
+//     username: '',
+//     password: '',
+//   });
+//   const [error, setError] = useState(''); // State to hold error message
+//   const navigate = useNavigate(); // Initialize useNavigate
+
+//   const handleChange = (e) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     try {
+//       const res = await axios.post('http://localhost:8000/api/login/', formData);
+//       console.log(res.data);
+//       // If login successful, redirect based on userType
+//       const { userType } = res.data; // Assuming your response contains userType
+//       if (userType === 'painter') {
+//         navigate('/painter-page');
+//       } else if (userType === 'admin') {
+//         navigate('/admin-page');
+//       } else {
+//         navigate('/main-page'); // Redirect to main page for customers
+//       }
+//     } catch (error) {
+//       console.error(error.response.data);
+//       // Set error message based on response status
+//       if (error.response.status === 401) {
+//         setError('Invalid username or password. Please try again.');
+//       } else {
+//         setError('An error occurred. Please try again later.');
+//       }
+//     }
+//   };
+
+//   return (
+//     <div className="login-container">
+//       <form className="login-form" onSubmit={handleSubmit}>
+//         <div className="login-heading">Log in</div>
+//         {error && <div className="error-message">{error}</div>} {/* Display error message */}
+//         <input type="text" name="username" placeholder="Username" onChange={handleChange} />
+//         <input type="password" name="password" placeholder="Password" onChange={handleChange} />
+//         <button type="submit">Login</button>
+//         <div className="login-links">
+//           <a href="/forgot-password">Forgot Password?</a> {/* Forgot Password link */}
+//           <span> | </span> {/* Separator */}
+//           <a href="/register">Register</a> {/* Registration link */}
+//         </div>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default LoginForm;
+
+
+// LoginForm.js
+import React, { useState } from 'react';
+//import { useNavigate } from 'react-router-dom';
+import './css/Login.css'; // Import the CSS file
+
+
+const Login = () => {
+    const [formData, setFormData] = useState({
+        username: '',
+        password: '',
+    });
+    const [error, setError] = useState(''); // State to hold error message
+   // const navigate = useNavigate(); // Initialize useNavigate
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+    };
+    const handleLogin = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/api/login/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData), // Send the login form data
+            });
+    
+            if (response.ok) {
+                const userData = await response.json(); // Assuming the response contains user data including userType
+                const userType = userData.userType;
+    
+                // Redirect user based on userType
+                if (userType === 'customer') {
+                    window.location = '/account_customer';
+                } else if (userType === 'painter') {
+                    window.location = '/account_painter';
+                } else if (userType === 'admin') {
+                    window.location = '/account_admin';
+                } else {
+                    setError('Invalid user type.');
+                }
+            } else {
+                setError('Invalid username or password.');
+            }
+    
+        } catch (error) {
+            console.error(error);
+            setError('An error occurred. Please try again later.');
+        }
+    };
+    
+
+    // const handleLogin = async () => {
+    //     // Perform login logic here
+    //     try {
+    //         // Simulating login process, replace with actual login logic
+    //         const userType = 'painter'; // Assuming userType is retrieved after successful login
+    //         if (userType === 'customer') {
+    //             window.location = '/account_costumer';
+                
+    //         } else if (userType === 'painter') {
+    //             window.location = '/account_painter';
+                
+    //         } else {
+    //             window.location = '/account_admin';
+                
+    //         }
+
+    //     } catch (error) {
+    //         console.error(error);
+    //         setError('An error occurred. Please try again later.');
+    //     }
+    // };
+
+//________________________________________________________
+    // const handleLogin = async () => {
+    //     // Perform login logic here
+    //     try {
+    //         // Make a request to your backend to authenticate the user
+    //         const response = await fetch('/login', {
+    //             method: 'POST',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //             },
+    //             body: JSON.stringify(formData), // Send the login form data
+    //         });
+    
+    //         if (response.ok) {
+    //             const userData = await response.json(); // Assuming the response contains user data including userType
+    //             const userType = userData.userType;
+    
+    //             if (userType === 'customer') {
+    //                 window.location = '/account_customer';
+    //             } else if (userType === 'painter') {
+    //                 window.location = '/account_painter';
+    //             } else if (userType === 'admin') {
+    //                 window.location = '/account_admin';
+    //             } else {
+    //                 setError('Invalid user type.');
+    //             }
+    //         } else {
+    //             // Handle authentication error
+    //             setError('Invalid username or password.');
+    //         }
+    
+    //     } catch (error) {
+    //         console.error(error);
+    //         setError('An error occurred. Please try again later.');
+    //     }
+    // };
+    
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        handleLogin(); // Call handleLogin when the form is submitted
+    };
+
+    return (
+        <div>
+            <h2>Login</h2>
+            {error && <div>{error}</div>}
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="username">Username:</label>
+                    <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
+                </div>
+                <div>
+                    <label htmlFor="password">Password:</label>
+                    <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
+                </div>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    );
+};
+
+export default Login;
+ 
+________________________________________________________________
+
+
+
+// import React, { useState } from 'react';
+// import axios from 'axios';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+// import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+// import { Link } from 'react-router-dom'; // Import Link from React Router
+
+// const RegistrationForm = () => {
+//   const [formData, setFormData] = useState({
+//     username: '',
+//     email: '',
+//     password: '',
+//     confirmPassword: '',
+//     user_type: '',
+//   });
+//   const [isRegistered, setIsRegistered] = useState(false); // State to track registration status
+//   const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+//   const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle confirm password visibility
+//   const [errorMessage, setErrorMessage] = useState(''); // State to hold error message
+
+//   const handleChange = (e) => {
+//     setFormData({ ...formData, [e.target.name]: e.target.value });
+//   };
+
+//   const handleSubmit = async (e) => {
+//     e.preventDefault();
+//     if (formData.username === 'Alina' && formData.email === 'amanbekovaalina10@gmail.com') {
+//       setErrorMessage('The user already exists.');
+//       return;
+//     }
+//     if (formData.password !== formData.confirmPassword) {
+//       setErrorMessage('Passwords do not match');
+//       return;
+//     }
+//     if (!isPasswordStrong(formData.password)) {
+//       setErrorMessage('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+//       return;
+//     }
+//     try {
+//       const res = await axios.post('http://localhost:8000/api/register/', formData);
+//       console.log(res.data);
+//       setIsRegistered(true);
+//       setErrorMessage('');
+//     } catch (error) {
+//       if (error.response.status === 400) {
+//         setErrorMessage(error.response.data.error);
+//       } else {
+//         console.error(error.response.data);
+//       }
+//     }
+//   };
+
+//   const isPasswordStrong = (password) => {
+//     const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+//     return strongRegex.test(password);
+//   };
+
+//   const togglePasswordVisibility = () => {
+//     setShowPassword(!showPassword);
+//   };
+
+//   const toggleConfirmPasswordVisibility = () => {
+//     setShowConfirmPassword(!showConfirmPassword);
+//   };
+
+//   return (
+//     <div className="container mt-5 text-center">
+//       <h2>Registration</h2>
+//       {errorMessage && (
+//         <div className="alert alert-danger" role="alert">
+//           {errorMessage}
+//         </div>
+//       )}
+//       {!isRegistered ? (
+//         <div className="row justify-content-center">
+//           <div className="col-md-6">
+//             <form onSubmit={handleSubmit}>
+//               <div className="form-group">
+//                 <input type="text" className="form-control" name="username" placeholder="Username" onChange={handleChange} />
+//               </div>
+//               <div className="form-group">
+//                 <input type="email" className="form-control" name="email" placeholder="Email" onChange={handleChange} />
+//               </div>
+//               <div className="form-group">
+//                 <div className="input-group">
+//                   <input type={showPassword ? 'text' : 'password'} className="form-control" name="password" placeholder="Password" onChange={handleChange} />
+//                   <button className="btn btn-outline-secondary" type="button" onClick={togglePasswordVisibility}>
+//                     <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+//                   </button>
+//                 </div>
+//               </div>
+//               <div className="form-group">
+//                 <div className="input-group">
+//                   <input type={showConfirmPassword ? 'text' : 'password'} className="form-control" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} />
+//                   <button className="btn btn-outline-secondary" type="button" onClick={toggleConfirmPasswordVisibility}>
+//                     <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+//                   </button>
+//                 </div>
+//               </div>
+//               <div className="form-group">
+//                 <select className="form-control" name="user_type" onChange={handleChange}>
+//                   <option value="">Select User Type</option>
+//                   <option value="painter">Painter</option>
+//                   <option value="customer">Customer</option>
+//                 </select>
+//               </div>
+//               <button type="submit" className="btn btn-primary">Register</button>
+//             </form>
+//           </div>
+//         </div>
+//       ) : (
+//         <div>
+//           <p className="mt-4 text-success">You are registered successfully!</p>
+//           <p>Already have an account? <Link to="/login">Log in</Link></p> {/* Link to the login page */}
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default RegistrationForm;
+
+// RegistrationForm.js
+import React, { useState } from 'react';
+import axios from 'axios';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom'; // Import Link from React Router
+
+const RegistrationForm = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    user_type: '',
+  });
+  const [isRegistered, setIsRegistered] = useState(false); // State to track registration status
+  const [showPassword, setShowPassword] = useState(false); // State to toggle password visibility
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false); // State to toggle confirm password visibility
+  const [errorMessage, setErrorMessage] = useState(''); // State to hold error message
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (formData.username === 'Alina' && formData.email === 'amanbekovaalina10@gmail.com') {
+      setErrorMessage('The user already exists.');
+      return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+      setErrorMessage('Passwords do not match');
+      return;
+    }
+    if (!isPasswordStrong(formData.password)) {
+      setErrorMessage('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+      return;
+    }
+    try {
+      const res = await axios.post('http://localhost:8000/api/register/', formData);
+      console.log(res.data);
+      setIsRegistered(true);
+      setErrorMessage('');
+    } catch (error) {
+      if (error.response.status === 400) {
+        setErrorMessage(error.response.data.error);
+      } else {
+        console.error(error.response.data);
+      }
+    }
+  };
+
+  const isPasswordStrong = (password) => {
+    const strongRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})");
+    return strongRegex.test(password);
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+
+  return (
+    <div className="container mt-5 text-center">
+      <h2>Registration</h2>
+      {errorMessage && (
+        <div className="alert alert-danger" role="alert">
+          {errorMessage}
+        </div>
+      )}
+      {!isRegistered ? (
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <form onSubmit={handleSubmit}>
+              <div className="form-group">
+                <input type="text" className="form-control" name="username" placeholder="Username" onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <input type="email" className="form-control" name="email" placeholder="Email" onChange={handleChange} />
+              </div>
+              <div className="form-group">
+                <div className="input-group">
+                  <input type={showPassword ? 'text' : 'password'} className="form-control" name="password" placeholder="Password" onChange={handleChange} />
+                  <button className="btn btn-outline-secondary" type="button" onClick={togglePasswordVisibility}>
+                    <FontAwesomeIcon icon={showPassword ? faEyeSlash : faEye} />
+                  </button>
+                </div>
+              </div>
+              <div className="form-group">
+                <div className="input-group">
+                  <input type={showConfirmPassword ? 'text' : 'password'} className="form-control" name="confirmPassword" placeholder="Confirm Password" onChange={handleChange} />
+                  <button className="btn btn-outline-secondary" type="button" onClick={toggleConfirmPasswordVisibility}>
+                    <FontAwesomeIcon icon={showConfirmPassword ? faEyeSlash : faEye} />
+                  </button>
+                </div>
+              </div>
+              <div className="form-group">
+                <select className="form-control" name="user_type" onChange={handleChange}>
+                  <option value="">Select User Type</option>
+                  <option value="painter">Painter</option>
+                  <option value="customer">Customer</option>
+                </select>
+              </div>
+              <button type="submit" className="btn btn-primary">Register</button>
+            </form>
+          </div>
+        </div>
+      ) : (
+        <div>
+          <p className="mt-4 text-success">You are registered successfully!</p>
+          <p>Already have an account? <Link to="/login">Log in</Link></p> {/* Link to the login page */}
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default RegistrationForm;
+___________________________________________________________________
+
+
+
+css,Login.css/* LoginForm.css */
+
+/* Center the form container vertically and horizontally */
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f5f5f5; /* Light background color */
+    font-family: Arial, sans-serif; /* Default font family */
+  }
+  
+  /* Style for the form */
+  .login-form {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Adjust form width as needed */
+    max-width: 400px; /* Set maximum width for responsiveness */
+  }
+  
+  /* Style for form input fields */
+  input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #dcdcdc; /* Light gray border */
+    border-radius: 5px;
+    font-size: 16px; /* Font size */
+  }
+  
+  /* Style for form button */
+  button {
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px; /* Font size */
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Change button color on hover */
+  button:hover {
+    background-color: #0056b3;
+  }
+  
