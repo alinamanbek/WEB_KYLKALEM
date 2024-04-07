@@ -159,3 +159,88 @@ def forgot_password(request):
         return JsonResponse({'message': 'Password reset link has been sent to your email'}, status=200)
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
+
+
+# from rest_framework import status
+# from rest_framework.decorators import api_view
+# from rest_framework.response import Response
+# from .models import Paint
+# from .serializers import PaintSerializer
+
+# @api_view(['POST'])
+# def create_paint(request):
+#     if not request.user.is_authenticated:
+#         return Response({'error': 'Authentication required'}, status=status.HTTP_401_UNAUTHORIZED)
+
+#     serializer = PaintSerializer(data=request.data)
+#     if serializer.is_valid():
+#         # Assuming you have authenticated the request and attached the user's painter profile
+#         if hasattr(request.user, 'painter'):
+#             serializer.save(painter=request.user.painter)
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+#         else:
+#             return Response({'error': 'User has no painter profile'}, status=status.HTTP_400_BAD_REQUEST)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Paint
+from .serializers import PaintSerializer
+
+@api_view(['POST'])
+def create_paint(request):
+    if request.method == 'POST':
+        serializer = PaintSerializer(data=request.data)
+        if serializer.is_valid():
+            # Assign the painter based on the logged-in user
+            serializer.save(painter=request.user.painter)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Paint
+from .serializers import PaintSerializer
+from rest_framework.permissions import IsAuthenticated
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_paintings(request):
+    if request.method == 'GET':
+        # Filter paintings by the logged-in user
+        paintings = Paint.objects.filter(painter__user=request.user)
+        serializer = PaintSerializer(paintings, many=True)
+        return Response(serializer.data)
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from rest_framework import status
+from .models import Paint
+from .serializers import PaintSerializer
+from rest_framework.permissions import IsAuthenticated
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_paint(request, pk):
+    try:
+        paint = Paint.objects.get(pk=pk)
+    except Paint.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
+    # Check if the user is authorized to delete the paint
+    if request.user != paint.painter.user:
+        return Response({'message': 'You do not have permission to delete this paint'}, status=status.HTTP_403_FORBIDDEN)
+    
+    paint.delete()
+    return Response({'message': 'Paint deleted successfully'}, status=status.HTTP_204_NO_CONTENT)

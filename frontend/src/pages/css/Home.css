@@ -55,3 +55,28 @@
     height: 65vh; /* Adjust to 65% of viewport height */
     object-fit: cover;
 }
+
+ 
+.who-we-are {
+    text-align: center; /* Center text horizontally */
+    margin-bottom: 50px;
+    margin-top: 80px;
+}
+
+.two-part-division {
+    display: flex;
+   
+    align-items: center;
+    margin-top: 50px; /* Adjust as needed */
+}
+
+.left-side-text {
+    text-align: center; 
+    width: 60%;
+    margin-left:50px;
+}
+
+.right-side-photo {
+    width: 60%; 
+    text-align: center; /* Center photo horizontally */
+}

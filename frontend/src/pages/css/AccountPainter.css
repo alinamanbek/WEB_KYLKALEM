@@ -1,0 +1,64 @@
+/* AccountPainter.css */
+.account-painter-container {
+    padding: 20px;
+}
+
+.heading {
+    text-align: center;
+    font-family: 'Frank Ruhl Libre', sans-serif;
+    font-size: 24px;
+}
+
+.form-container {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.picture-table-container {
+    margin-top: 20px;
+}
+
+.picture-table {
+    width: 100%;
+}
+
+.picture-table th {
+    text-align: center;
+}
+
+.picture-table td {
+    text-align: center;
+}
+
+.delete-button {
+    cursor: pointer;
+    color: red;
+}
+
+.picture-container {
+    display: flex;
+    align-items: center;
+}
+
+.picture-img {
+    width: 1120px; /* Adjust the width as needed */
+    margin-right: 20px; /* Add margin to separate the image from the content */
+    margin-bottom: 30px;
+}
+
+.account-painter-section {
+    margin-bottom: 70px; /* Add margin between sections */
+}
+
+.heading {
+    font-family: 'Lora', serif;
+}
+
+/* AccountPainter.css */
+.account-painter-section {
+    background-color: #E9E4D8;
+    padding: 20px; /* Optional: Add padding for better visual appearance */
+}

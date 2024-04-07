@@ -92,7 +92,7 @@ WSGI_APPLICATION = 'kyl_kalem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'ALINA_APP',     # Replace with your actual database name
+        'NAME': 'KYLKALEM',     # Replace with your actual database name
         'USER': 'root',                   # MySQL username
         'PASSWORD': 'root',               # MySQL password
         'HOST': '127.0.0.1',              # MySQL host (use 'localhost' if preferred)
@@ -155,7 +155,8 @@ REST_FRAMEWORK = {
     ],
 }
 
-
+ 
+ 
 
 
 '''
@@ -228,3 +229,4 @@ SIMPLE_JWT = {
     # ...
 }
 '''
+
