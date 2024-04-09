@@ -37,6 +37,9 @@
 
 // export default App;
 
+
+
+//this is code
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import MenuBar from './components/MenuBar';
@@ -52,6 +55,8 @@ import AccountCustomer from './pages/AccountCostumer';
 import AccountAdmin from './pages/AccountAdmin';
 import NotFound from './pages/NotFound';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -69,6 +74,7 @@ function App() {
         <Route path="/account_customer" element={<AccountCustomer />} />
         <Route path="/account_admin" element={<AccountAdmin />} />
         <Route path="/home" element={<Home />} />
+        
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />

@@ -47,16 +47,11 @@ from .views import (
     forgot_password,
     get_recent_paintings,
     get_all_paintings,
-    
-     create_paint ,
+    create_paint ,
    # create_or_update_paint,
     get_paintings,
     #delete_paint,
-   
    # create_or_get_paint,
-   
-   
-   
     update_or_delete_paint,
    )
 
@@ -76,6 +71,7 @@ urlpatterns = [
     #path('api/paintings/<int:pk>/', create_or_get_paint, name='create_or_update_paint'),
     path('api/recent_paintings/', get_recent_paintings, name='get_recent_paintings'),
     path('api/create_paint/', create_paint, name='create_paint'),
+    
 ]
 
 if settings.DEBUG:

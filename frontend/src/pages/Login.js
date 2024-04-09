@@ -101,7 +101,19 @@
 //     }
 // }
 
-// export default Login;import React, { useState } from 'react';
+
+
+
+
+
+
+
+
+// export default Login; 
+
+
+
+
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
 const Login = ({ setIsLoggedIn }) => {
@@ -138,7 +150,11 @@ const Login = ({ setIsLoggedIn }) => {
                     // Set isLoggedIn state to true upon successful login
                     setIsLoggedIn(true);
                     navigate('/account_painter');
-                } else {
+                }else if (userType === 'customer') {
+                    navigate('/account_customer');
+                } else if (userType === 'admin') {
+                    navigate('/account_admin');}
+                else {
                     setError('Invalid user type.');
                 }
             } else {

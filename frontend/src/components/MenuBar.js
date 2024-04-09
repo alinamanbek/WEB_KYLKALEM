@@ -41,6 +41,25 @@
 
 // export default MenuBar;
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//this code
 import React from 'react';
 import { Link } from 'react-router-dom';
 import image4 from '../photos/kyl.png';
@@ -57,8 +76,8 @@ const MenuBar = ({ isLoggedIn }) => {
                         <li><Link to="/home">Home</Link></li>
                         <li><Link to="/about">About</Link></li>
                         <li><Link to="/catalog">Catalog</Link></li>
-                        <li><Link to="/artists">Artists</Link></li>
-                        {/* Conditionally render menu items based on login status */}
+                       
+                        {/*  <li><Link to="/artists">Artists</Link></li> */}
                         {isLoggedIn ? (
                             <>
                                 <li><Link to="/account_painter">Account</Link></li>
@@ -78,3 +97,6 @@ const MenuBar = ({ isLoggedIn }) => {
 }
 
 export default MenuBar;
+
+
+ 

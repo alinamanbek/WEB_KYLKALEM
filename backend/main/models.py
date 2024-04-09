@@ -10,11 +10,11 @@ class Admin(models.Model):
 class Painter(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     createdTime = models.DateTimeField(auto_now_add=True)
-    photoUrl = models.URLField()
+    image = models.ImageField(upload_to='account_pictures/')
     AboutPainter = models.TextField()
     workExperience = models.TextField()
     education = models.TextField()
-    
+    name = models.TextField()    
  
     
 class Customer(models.Model):
