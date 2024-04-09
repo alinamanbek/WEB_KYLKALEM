@@ -1,5 +1,5 @@
 from django.urls import reverse
-from .models import Painter, Customer
+ 
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -75,6 +75,11 @@ def login(request):
 
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+
+
+
 
 
 from django.shortcuts import render, redirect
@@ -160,34 +165,41 @@ def forgot_password(request):
 
     return JsonResponse({'error': 'Invalid request method'}, status=405)
 
-
-# from rest_framework import status
-# from rest_framework.decorators import api_view
-# from rest_framework.response import Response
-# from .models import Paint
-# from .serializers import PaintSerializer
-
-# @api_view(['POST'])
-# def create_paint(request):
-#     if not request.user.is_authenticated:
-#         return Response({'error': 'Authentication required'}, status=status.HTTP_401_UNAUTHORIZED)
-
-#     serializer = PaintSerializer(data=request.data)
-#     if serializer.is_valid():
-#         # Assuming you have authenticated the request and attached the user's painter profile
-#         if hasattr(request.user, 'painter'):
-#             serializer.save(painter=request.user.painter)
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-#         else:
-#             return Response({'error': 'User has no painter profile'}, status=status.HTTP_400_BAD_REQUEST)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ #CRUD PAINT
+ 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Paint
 from .serializers import PaintSerializer
-
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+ 
+ 
+# CReate
 @api_view(['POST'])
 def create_paint(request):
     if request.method == 'POST':
@@ -198,13 +210,9 @@ def create_paint(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.response import Response
-from rest_framework import status
-from .models import Paint
-from .serializers import PaintSerializer
-from rest_framework.permissions import IsAuthenticated
 
+
+#get for painter account
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_paintings(request):
@@ -214,33 +222,109 @@ def get_paintings(request):
         serializer = PaintSerializer(paintings, many=True)
         return Response(serializer.data)
 
-    
-    
-    
-    
-    
-    
-    
-    
-    
-from rest_framework.decorators import api_view, permission_classes
+
+
+
+# @api_view(['PUT'])
+# @permission_classes([IsAuthenticated])
+# def update_paint(request, pk):
+#     try:
+#         paint = Paint.objects.get(pk=pk)
+#     except Paint.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+
+#     if request.user != paint.painter.user:
+#         return Response({'message': 'You do not have permission to update this paint'}, status=status.HTTP_403_FORBIDDEN)
+
+#     serializer = PaintSerializer(paint, data=request.data)
+#     if serializer.is_valid():
+#         serializer.save()
+#         return Response(serializer.data)
+#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+
+
+# @api_view(['DELETE'])
+# @permission_classes([IsAuthenticated])
+# def delete_paint(request, pk):
+#     try:
+#         paint = Paint.objects.get(pk=pk)
+#     except Paint.DoesNotExist:
+#         return Response(status=status.HTTP_404_NOT_FOUND)
+
+#     if request.user != paint.painter.user:
+#         return Response({'message': 'You do not have permission to delete this paint'}, status=status.HTTP_403_FORBIDDEN)
+
+#     paint.delete()
+#     return Response({'message': 'Paint deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+
+
+
+
+
+
+#home
+@api_view(['GET'])
+def get_recent_paintings(request):
+    recent_paintings = Paint.objects.order_by('-created_time')[:6]
+    serializer = PaintSerializer(recent_paintings, many=True)
+    return Response(serializer.data)
+
+#catalog
+@api_view(['GET'])
+def get_all_paintings(request):
+    paintings = Paint.objects.all()
+    serializer = PaintSerializer(paintings, many=True)
+    return Response(serializer.data)
+
+
+
+ #edit 
+ 
+@api_view(['GET', 'PUT', 'DELETE'])
+@permission_classes([IsAuthenticated])
+def update_or_delete_paint(request, pk):
+    paint = get_object_or_404(Paint, pk=pk)
+    if request.method == 'GET':
+        serializer = PaintSerializer(paint)
+        return Response(serializer.data)
+    elif request.method == 'PUT':
+        serializer = PaintSerializer(paint, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == 'DELETE':
+        paint.delete()
+        return Response({'message': 'Paint deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+
+
+ 
+
+ 
+
+from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Paint
 from .serializers import PaintSerializer
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
 
-@api_view(['DELETE'])
+@api_view(['POST', 'PUT'])
 @permission_classes([IsAuthenticated])
-def delete_paint(request, pk):
-    try:
-        paint = Paint.objects.get(pk=pk)
-    except Paint.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-    
-    # Check if the user is authorized to delete the paint
-    if request.user != paint.painter.user:
-        return Response({'message': 'You do not have permission to delete this paint'}, status=status.HTTP_403_FORBIDDEN)
-    
-    paint.delete()
-    return Response({'message': 'Paint deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+def create_or_update_paint(request, pk=None):
+    if request.method == 'POST' or request.method == 'PUT':
+        if pk:  # If pk exists, it's an update
+            paint = get_object_or_404(Paint, pk=pk)
+            serializer = PaintSerializer(paint, data=request.data)
+        else:  # It's a create request
+            serializer = PaintSerializer(data=request.data)
+        if serializer.is_valid():
+            # Assign the painter based on the logged-in user
+            serializer.save(painter=request.user.painter)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

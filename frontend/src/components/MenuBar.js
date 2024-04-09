@@ -61,7 +61,7 @@ const MenuBar = ({ isLoggedIn }) => {
                         {/* Conditionally render menu items based on login status */}
                         {isLoggedIn ? (
                             <>
-                                <li><Link to="/account">Account</Link></li>
+                                <li><Link to="/account_painter">Account</Link></li>
                                 <li><Link to="/logout">Logout</Link></li>
                             </>
                         ) : (

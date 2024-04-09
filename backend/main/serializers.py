@@ -15,8 +15,9 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = '__all__'
+# serializers.py
  
- 
+
 from rest_framework import serializers
 from .models import Paint
 
@@ -24,3 +25,8 @@ class PaintSerializer(serializers.ModelSerializer):
     class Meta:
         model = Paint
         fields = ['id', 'name', 'image', 'genre', 'price']
+        
+        
+        
+
+
