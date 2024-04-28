@@ -32,7 +32,7 @@ class Paint(models.Model):
     image = models.ImageField(upload_to='pictures/')
     genre = models.CharField(max_length=100)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    
+    # about_paint = models.CharField(max_length=255)
   
 
 class Basket(models.Model):

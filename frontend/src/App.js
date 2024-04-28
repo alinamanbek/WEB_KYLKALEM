@@ -49,11 +49,13 @@ import About from './pages/About';
 import Catalog from './pages/Catalog';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
+import Logout from './pages/Logout';
 import Basket from './pages/Basket';
 import AccountPainter from './pages/AccountPainter';
 import AccountCustomer from './pages/AccountCostumer';
 import AccountAdmin from './pages/AccountAdmin';
 import NotFound from './pages/NotFound';
+ 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
@@ -69,6 +71,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/register" element={<Signup />} />
+        <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/basket" element={<Basket />} />
         <Route path="/account_painter" element={<AccountPainter />} />
         <Route path="/account_customer" element={<AccountCustomer />} />
