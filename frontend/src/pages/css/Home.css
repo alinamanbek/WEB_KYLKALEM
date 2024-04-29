@@ -1,17 +1,17 @@
-.logo-container {
+/* .logo-container {
     text-align: center;
-    margin-bottom: 20px; /* Adjust as needed */
+    margin-bottom: 20px; 
 }
 
 .logo {
-    width: 100px; /* Adjust size as needed */
-    height: 100px; /* Adjust size as needed */
+    width: 100px;  
+    height: 100px; 
 }
 
 .text {
     font-family: 'Frank Ruhl Libre', sans-serif;
-    font-size: 24px; /* Adjust font size as needed */
-    margin-bottom: 20px; /* Add spacing between text and menu */
+    font-size: 24px;  
+    margin-bottom: 20px;  
 }
 
 
@@ -22,26 +22,26 @@
 
 .menu ul li {
     display: inline-block;
-    margin-right: 55px; /* Adjust spacing between menu items */
+    margin-right: 55px; 
     font-size: 20px;
     font-family: 'Frank Ruhl Libre', serif; 
     margin-top: 0px;
 }
 
 .menu ul li:last-child {
-    margin-right: 10px; /* Remove margin-right from the last menu item */
+    margin-right: 10px;  
 }
 
 
 .full-screen-photo img {
     width: 100%;
-    height: 65vh; /* Adjust to 65% of viewport height */
+    height: 65vh;  
     object-fit: cover;
 }
 
  
 .who-we-are {
-    text-align: center; /* Center text horizontally */
+    text-align: center;  
     margin-bottom: 50px;
     margin-top: 80px;
 }
@@ -50,7 +50,7 @@
     display: flex;
    
     align-items: center;
-    margin-top: 50px; /* Adjust as needed */
+    margin-top: 50px;  
 }
 
 .left-side-text {
@@ -61,53 +61,14 @@
 
 .right-side-photo {
     width: 60%; 
-    text-align: center; /* Center photo horizontally */
+    text-align: center;  
 }
-/* Home.css */
-/* Home.css */
+ 
 
 .home-container {
     padding: 20px;
   }
-  
-  .paint-cards-container {
-    margin-top: 70px;
-  }
-  
-  .paint-cards-row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-  
-  .paint-card {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: calc(33.33% - 10px); /* Adjust width based on number of cards per row */
-    transition: all 0.3s ease; /* Add transition for smooth effect */
-  }
-  
-  .paint-card:hover {
-    transform: scale(1.05); /* Zoom effect on hover */
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); /* Add shadow on hover */
-  }
-  
-  .paint-image-container {
-    height: 200px; /* Set the desired height of the card */
-    overflow: hidden;
-  }
-  
-  .paint-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover; /* Ensure the image fills the container */
-  }
-  
-  .paint-details {
-    padding: 10px;
-  }
-  
+
   .more-link {
     display: block;
     text-align: center;
@@ -116,4 +77,205 @@
     text-decoration: none;
     color: blue;
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
+  
+  .paint-cards-container {
+    margin-top: 100px;
+    margin-bottom: 100px;
+
+  }  
+  
+.paint-cards-row {
+    display: flex; 
+    flex-wrap: wrap;
+  }  
+ 
+  .paint-image-container {
+    height: 200px;  
+    overflow: hidden;
+  }
+  
+  .paint-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover; 
+  }
+  
+  .paint-details {
+    padding: 10px;
+  }
+  
+  .paint-card {
+    margin: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: calc(33.33% - 20px); 
+    max-width: 300px;  
+    transition: all 0.3s ease; 
+  }
+  
+  .paint-card:hover {
+    transform: scale(1.05);  
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); 
+  } 
+    */
+
+
+
+    /* Home.css */
+.home-container {
+  padding: 20px;
+}
+
+.home-full-screen-photo img {
+  width: 100%;
+  height: 70vh;
+  object-fit: cover;
+
+}
+
+.home-who-we-are {
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 80px;
+}
+
+.home-two-part-division {
+  display: flex;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.home-left-side-text {
+  text-align: center;
+  width: 60%;
+  margin-left: 50px;
+}
+
+.home-right-side-photo,
+.home-left-side-photo {
+  width: 60%;
+  text-align: center;
+}
+
+.home-right-side-text {
+  width: 40%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.home-paint-cards-container {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  
+}
+
+
+.home-paint-rows-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; 
+}
+
+/* .home-paint-card {
+  margin: 20px;
+  width: calc(33.33% - 40px);
+  max-width: 300px;
+  transition: all 0.3s ease;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+.home-paint-row-divider {
+  flex-basis: 100%;
+  height: 0;
+}
+
+.home-paint-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+.home-paint-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+
+.home-read-more,
+.home-more-link {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  color: blue;
+}
+
+.home-paint-card {
+  margin: 20px;
+  max-width: 400px;  
+  transition: all 0.3s ease;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  
+}
+
+.home-paint-image {
+  width: 300px;
+  height: 300px; /* Increase the height */
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+
+
+
+.home-paint-card-link {
+  color: black;  
+  text-decoration: none;  
+}
+
+.home-paint-details {
+  color: black;  
+}
