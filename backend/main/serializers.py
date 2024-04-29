@@ -6,16 +6,6 @@ class AdminSerializer(serializers.ModelSerializer):
         model = Admin
         fields = '__all__'
 
-# class PainterSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Painter
-#         fields = '__all__'
-
-# class CustomerSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Customer
-#         fields = '__all__'
-# # serializers.py
 from rest_framework import serializers
 from .models import Painter, Customer
 
@@ -34,11 +24,10 @@ from rest_framework import serializers
 from .models import Paint
 
 class PaintSerializer(serializers.ModelSerializer):
+    painter_name = serializers.CharField(source='painter.name', read_only=True)
+
     class Meta:
         model = Paint
-        fields = ['id', 'name', 'image', 'genre', 'price']
-        
-        
-        
+        fields = ['id', 'name', 'image', 'genre', 'price', 'about_paint', 'painter_name']
 
 

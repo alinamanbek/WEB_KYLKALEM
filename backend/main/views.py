@@ -1,5 +1,4 @@
 from django.urls import reverse
- 
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -12,8 +11,11 @@ from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from .forms import PasswordResetForm  # Import the PasswordResetForm
-from .models import Admin, Painter, Customer
-
+from .models import Admin, Painter, Customer, Paint
+from .serializers import PaintSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
+from django.shortcuts import get_object_or_404
 
 
 
@@ -71,69 +73,6 @@ def register(request):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
-# @api_view(['POST'])
-# def register(request):
-#     if request.method == 'POST':
-#         registration_data = request.data
-        
-#         # Process registration data and create User instance
-#         user = User.objects.create_user(username=registration_data['username'], email=registration_data['email'], password=registration_data['password'])
-        
-#         # Check the user_type
-#         user_type = registration_data.get('user_type')
-#         if user_type == 'painter':
-#             # If user_type is painter, create a Painter instance
-#             painter_data = request.data
-#             painter = Painter.objects.create(user=user)
-#             return Response({'user_type': 'painter', 'message': 'Painter created successfully'}, status=status.HTTP_201_CREATED)
-#         elif user_type == 'customer':
-#             # If user_type is customer, create a Customer instance
-#             customer_data = request.data
-#             customer = Customer.objects.create(user=user)
-#             return Response({'user_type': 'customer', 'message': 'Customer created successfully'}, status=status.HTTP_201_CREATED)
-#         elif user_type == 'admin':
-#             # If user_type is admin, create an Admin instance
-#             admin_data = request.data
-#             admin = Admin.objects.create(user=user)
-#             return Response({'user_type': 'admin', 'message': 'Admin created successfully'}, status=status.HTTP_201_CREATED)
-#         else:
-#             # If user_type is not specified, just return a success response
-#             login_link = reverse('login')
-#             message = 'User registered successfully. Please <a href="{}">log in</a>.'.format(login_link)
-#             return Response({'message': message}, status=status.HTTP_201_CREATED)
-
-# @api_view(['POST'])
-# def register(request):
-#     if request.method == 'POST':
-#         registration_data = request.data
-        
-#         # Process registration data and create User instance
-#         user = User.objects.create_user(username=registration_data['username'], email=registration_data['email'], password=registration_data['password'])
-        
-#         # Check the user_type
-#         user_type = registration_data.get('user_type')
-#         if user_type == 'painter':
-#             # If user_type is painter, create a Painter instance
-#             painter_data = request.data
-#             painter = Painter.objects.create(user=user)
-#             return Response({'message': 'Painter created successfully'}, status=status.HTTP_201_CREATED)
-#         elif user_type == 'customer':
-#             # If user_type is customer, create a Customer instance
-#             customer_data = request.data
-#             customer = Customer.objects.create(user=user)
-#             return Response({'message': 'Customer created successfully'}, status=status.HTTP_201_CREATED)
-#         elif user_type == 'admin':
-#             # If user_type is admin, create an Admin instance
-#             admin_data = request.data
-#             admin = Admin.objects.create(user=user)
-#             return Response({'message': 'Admin created successfully'}, status=status.HTTP_201_CREATED)
-#         else:
-#             # If user_type is not specified, just return a success response
-#             login_link = reverse('login')
-#             message = 'User registered successfully. Please <a href="{}">log in</a>.'.format(login_link)
-#             return Response({'message': message}, status=status.HTTP_201_CREATED)
- 
 @api_view(['POST'])
 def login(request):
     if request.method == 'POST':
@@ -311,47 +250,6 @@ def get_paintings(request):
 
 
 
-
-# @api_view(['PUT'])
-# @permission_classes([IsAuthenticated])
-# def update_paint(request, pk):
-#     try:
-#         paint = Paint.objects.get(pk=pk)
-#     except Paint.DoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-
-#     if request.user != paint.painter.user:
-#         return Response({'message': 'You do not have permission to update this paint'}, status=status.HTTP_403_FORBIDDEN)
-
-#     serializer = PaintSerializer(paint, data=request.data)
-#     if serializer.is_valid():
-#         serializer.save()
-#         return Response(serializer.data)
-#     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-
-# @api_view(['DELETE'])
-# @permission_classes([IsAuthenticated])
-# def delete_paint(request, pk):
-#     try:
-#         paint = Paint.objects.get(pk=pk)
-#     except Paint.DoesNotExist:
-#         return Response(status=status.HTTP_404_NOT_FOUND)
-
-#     if request.user != paint.painter.user:
-#         return Response({'message': 'You do not have permission to delete this paint'}, status=status.HTTP_403_FORBIDDEN)
-
-#     paint.delete()
-#     return Response({'message': 'Paint deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
-
-
-
-
-
-
 #home
 @api_view(['GET'])
 def get_recent_paintings(request):
@@ -362,7 +260,7 @@ def get_recent_paintings(request):
 #catalog
 @api_view(['GET'])
 def get_all_paintings(request):
-    paintings = Paint.objects.all()
+    paintings = Paint.objects.select_related('painter').all()
     serializer = PaintSerializer(paintings, many=True)
     return Response(serializer.data)
 
@@ -388,18 +286,6 @@ def update_or_delete_paint(request, pk):
         return Response({'message': 'Paint deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
 
- 
-
- 
-
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
-from rest_framework import status
-from .models import Paint
-from .serializers import PaintSerializer
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
-from django.shortcuts import get_object_or_404
 
 @api_view(['POST', 'PUT'])
 @permission_classes([IsAuthenticated])
@@ -422,82 +308,7 @@ def create_or_update_paint(request, pk=None):
 
 
 
-
-
-# from django.shortcuts import get_object_or_404
-# from rest_framework.decorators import api_view, permission_classes
-# from rest_framework.response import Response
-# from rest_framework import status
-# from .models import Painter
-# from .serializers import PainterSerializer
-# from rest_framework.permissions import IsAuthenticated
-
-# @api_view(['GET', 'PUT'])
-# @permission_classes([IsAuthenticated])
-# def get_user_account_details(request):
-#     user = request.user
-#     if hasattr(user, 'painter'):
-#         painter = get_object_or_404(Painter, user=user)
-#         serializer = PainterSerializer(painter)
-#         return Response(serializer.data)
-#     else:
-#         return Response({'error': 'User is not a painter'}, status=status.HTTP_400_BAD_REQUEST)
-
-# @api_view(['PUT'])
-# @permission_classes([IsAuthenticated])
-# def edit_user_account_details(request):
-#     user = request.user
-#     if hasattr(user, 'painter'):
-#         painter = user.painter
-#         painter.name = request.data.get('name', painter.name)
-#         painter.image = request.data.get('image', painter.image)
-#         painter.AboutPainter = request.data.get('AboutPainter', painter.AboutPainter)
-#         painter.work_experience = request.data.get('work_experience', painter.work_experience)
-#         painter.education = request.data.get('education', painter.education)
-#         painter.save()
-#         serializer = PainterSerializer(painter)
-#         return Response(serializer.data)
-#     else:
-#         return Response({'error': 'User is not a painter'}, status=status.HTTP_400_BAD_REQUEST)
-
-
-
-
-# old data
-# from django.shortcuts import get_object_or_404
-# from rest_framework.decorators import api_view, permission_classes
-# from rest_framework.response import Response
-# from rest_framework import status
-# from .models import Painter
-# from .serializers import PainterSerializer
-# from rest_framework.permissions import IsAuthenticated
-
-# @api_view(['GET', 'PUT'])
-# @permission_classes([IsAuthenticated])
-# def get_user_account_details(request):
-#     user = request.user
-#     if hasattr(user, 'painter'):
-#         painter = get_object_or_404(Painter, user=user)
-#         serializer = PainterSerializer(painter)
-#         return Response(serializer.data)
-#     else:
-#         return Response({'error': 'User is not a painter'}, status=status.HTTP_400_BAD_REQUEST)
-
-# @api_view(['PUT'])
-# @permission_classes([IsAuthenticated])
-# def edit_user_account_details(request):
-#     user = request.user
-#     if hasattr(user, 'painter'):
-#         painter = user.painter
-#         serializer = PainterSerializer(painter, data=request.data, partial=True)
-#         if serializer.is_valid():
-#             serializer.save()
-#             return Response(serializer.data)
-#         else:
-#             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-#     else:
-#         return Response({'error': 'User is not a painter'}, status=status.HTTP_400_BAD_REQUEST)
-
+ #edit accountpainter
 
 
 from django.shortcuts import get_object_or_404
@@ -519,6 +330,9 @@ def get_user_account_details(request):
     else:
         return Response({'error': 'User is not a painter'}, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def edit_user_account_details(request):
@@ -533,3 +347,16 @@ def edit_user_account_details(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     else:
         return Response({'error': 'User is not a painter'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+from django.http import JsonResponse
+from .models import Paint
+from .serializers import PaintSerializer
+
+def get_painting_detail(request, painting_id):
+    try:
+        painting = Paint.objects.get(id=painting_id)
+        serializer = PaintSerializer(painting)
+        return JsonResponse(serializer.data)
+    except Paint.DoesNotExist:
+        return JsonResponse({'error': 'Painting not found'}, status=404)

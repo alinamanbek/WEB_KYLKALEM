@@ -69,6 +69,7 @@ from .views import (
     update_or_delete_paint,
     get_user_account_details,
     edit_user_account_details,
+    get_painting_detail,
 )
 
 urlpatterns = [
@@ -84,6 +85,8 @@ urlpatterns = [
     path('api/create_paint/', create_paint, name='create_paint'),
     path('api/get_user_account_details/', get_user_account_details, name='get_user_account_details'),
     path('api/edit_user_account_details/', edit_user_account_details, name='edit_user_account_details'),
+    path('api/detail/<int:painting_id>/', get_painting_detail, name='get_painting_detail'), 
+    
 ]
 
 if settings.DEBUG:
