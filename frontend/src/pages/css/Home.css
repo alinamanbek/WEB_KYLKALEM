@@ -1,152 +1,4 @@
-/* .logo-container {
-    text-align: center;
-    margin-bottom: 20px; 
-}
-
-.logo {
-    width: 100px;  
-    height: 100px; 
-}
-
-.text {
-    font-family: 'Frank Ruhl Libre', sans-serif;
-    font-size: 24px;  
-    margin-bottom: 20px;  
-}
-
-
-.menu {
-    font-family: 'Spectral', serif;
-    
-}
-
-.menu ul li {
-    display: inline-block;
-    margin-right: 55px; 
-    font-size: 20px;
-    font-family: 'Frank Ruhl Libre', serif; 
-    margin-top: 0px;
-}
-
-.menu ul li:last-child {
-    margin-right: 10px;  
-}
-
-
-.full-screen-photo img {
-    width: 100%;
-    height: 65vh;  
-    object-fit: cover;
-}
-
- 
-.who-we-are {
-    text-align: center;  
-    margin-bottom: 50px;
-    margin-top: 80px;
-}
-
-.two-part-division {
-    display: flex;
-   
-    align-items: center;
-    margin-top: 50px;  
-}
-
-.left-side-text {
-    text-align: center; 
-    width: 60%;
-    margin-left:50px;
-}
-
-.right-side-photo {
-    width: 60%; 
-    text-align: center;  
-}
- 
-
-.home-container {
-    padding: 20px;
-  }
-
-  .more-link {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    font-size: 18px;
-    text-decoration: none;
-    color: blue;
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  .paint-cards-container {
-    margin-top: 100px;
-    margin-bottom: 100px;
-
-  }  
-  
-.paint-cards-row {
-    display: flex; 
-    flex-wrap: wrap;
-  }  
- 
-  .paint-image-container {
-    height: 200px;  
-    overflow: hidden;
-  }
-  
-  .paint-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover; 
-  }
-  
-  .paint-details {
-    padding: 10px;
-  }
-  
-  .paint-card {
-    margin: 50px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: calc(33.33% - 20px); 
-    max-width: 300px;  
-    transition: all 0.3s ease; 
-  }
-  
-  .paint-card:hover {
-    transform: scale(1.05);  
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3); 
-  } 
-    */
-
-
-
-    /* Home.css */
+     /* Home.css */
 .home-container {
   padding: 20px;
 }
@@ -185,14 +37,6 @@
 .home-right-side-text {
   width: 40%;
 }
-
-
-
-
-
-
-
-
 
 
 
@@ -263,7 +107,7 @@
 
 .home-paint-image {
   width: 300px;
-  height: 300px; /* Increase the height */
+  height: 300px;  
   object-fit: cover;
   transition: transform 0.3s ease;
 }

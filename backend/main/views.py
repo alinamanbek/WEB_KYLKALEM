@@ -16,8 +16,9 @@ from .serializers import PaintSerializer
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
-
-
+from rest_framework import generics
+from .models import Order
+from .serializers import OrderSerializer
 
 
 @api_view(['POST'])
@@ -73,6 +74,37 @@ def register(request):
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+# @api_view(['POST'])
+# def login(request):
+#     if request.method == 'POST':
+#         username = request.data.get('username')
+#         password = request.data.get('password')
+        
+#         if not username or not password:
+#             return Response({'error': 'Username and password are required'}, status=status.HTTP_400_BAD_REQUEST)
+        
+#         # Authenticate user
+#         user = authenticate(username=username, password=password)
+        
+#         if user:
+#             # Generate or retrieve token
+#             token, created = Token.objects.get_or_create(user=user)
+            
+#             # Check which type of user is logging in
+#             user_type = None
+#             if hasattr(user, 'admin'):
+#                 user_type = 'admin'
+#             elif hasattr(user, 'painter'):
+#                 user_type = 'painter'
+#             elif hasattr(user, 'customer'):
+#                 user_type = 'customer'
+            
+#             return Response({'token': token.key, 'userType': user_type, 'message': 'Logged in successfully'}, status=status.HTTP_200_OK)
+
+#         else:
+#             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+     
 @api_view(['POST'])
 def login(request):
     if request.method == 'POST':
@@ -89,6 +121,11 @@ def login(request):
             # Generate or retrieve token
             token, created = Token.objects.get_or_create(user=user)
             
+            # Retrieve the customer ID if the user is a customer
+            customer_id = None
+            if hasattr(user, 'customer'):
+                customer_id = user.customer.id
+            
             # Check which type of user is logging in
             user_type = None
             if hasattr(user, 'admin'):
@@ -98,17 +135,14 @@ def login(request):
             elif hasattr(user, 'customer'):
                 user_type = 'customer'
             
-            return Response({'token': token.key, 'userType': user_type, 'message': 'Logged in successfully'}, status=status.HTTP_200_OK)
+            return Response({'token': token.key, 'userType': user_type, 'customerId': customer_id, 'message': 'Logged in successfully'}, status=status.HTTP_200_OK)
 
         else:
             return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
-
-
-
-
-
-
-
+        
+     
+     
+     
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordResetForm
@@ -310,7 +344,6 @@ def create_or_update_paint(request, pk=None):
 
  #edit accountpainter
 
-
 from django.shortcuts import get_object_or_404
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
@@ -349,14 +382,63 @@ def edit_user_account_details(request):
         return Response({'error': 'User is not a painter'}, status=status.HTTP_400_BAD_REQUEST)
 
 
-from django.http import JsonResponse
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 from .models import Paint
 from .serializers import PaintSerializer
+from django.http import Http404
 
-def get_painting_detail(request, painting_id):
+@api_view(['GET'])
+def get_painting_detail(request, pk):
     try:
-        painting = Paint.objects.get(id=painting_id)
+        painting = Paint.objects.get(pk=pk)
         serializer = PaintSerializer(painting)
-        return JsonResponse(serializer.data)
+        return Response(serializer.data)
     except Paint.DoesNotExist:
-        return JsonResponse({'error': 'Painting not found'}, status=404)
+        raise Http404
+
+
+
+
+
+
+
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import Order
+from .serializers import OrderSerializer
+
+class OrderCreateAPIView(APIView):
+    def post(self, request, format=None):
+        serializer = OrderSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class OrderRetrieveUpdateDestroyAPIView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
+    serializer_class = OrderSerializer

@@ -1,0 +1,82 @@
+/* Basket.css */
+.basket-page {
+    margin: 20px;
+}
+
+.basket-heading {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.basket-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.basket-item {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.basket-item-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    margin-right: 10px;
+}
+
+.basket-item-details {
+    flex-grow: 1;
+}
+
+.basket-item-name {
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.basket-item-price {
+    font-size: 14px;
+    color: #888;
+}
+
+.empty-basket-message {
+    font-size: 16px;
+    color: #888;
+}
+.basket-item {
+    position: relative;
+}
+
+.remove-item-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+}
+.remove-item-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-icon {
+    color: red;
+    font-size: 20px; /* Adjust size as needed */
+}
+.order-button {
+    background-color: #007bff; /* Blue background color */
+    color: #fff; /* White text color */
+    border: none; /* Remove button border */
+    padding: 10px 20px; /* Add padding */
+    font-size: 16px; /* Set font size */
+    cursor: pointer; /* Add pointer cursor on hover */
+    border-radius: 5px; /* Add border radius */
+    margin-top: 20px; /* Add margin from the top */
+}
+
+.order-button:hover {
+    background-color: #0056b3; /* Darker blue color on hover */
+}

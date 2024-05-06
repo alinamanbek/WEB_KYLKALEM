@@ -1,11 +1,24 @@
 import React from 'react';
-import { Carousel } from 'react-bootstrap'; // Import Carousel component from react-bootstrap
-import './css/About.css'; // Import CSS styles for the About page
-import image1 from '../photos/shyrdak.jpg'; // Import images for the About page
-import image2 from '../photos/shyrdak.jpg'; // Import images for the About page
+import { Carousel } from 'react-bootstrap';  
+import './css/About.css';  
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import photo2 from '../photos/2.png';
+import imagei1 from '../photos/shyrdak.jpg'; 
+
+import image1 from '../photos/painter1.jpg';  
+import image2 from '../photos/painter5.jpg';  
+
+import image3 from '../photos/painter3.jpg';  
+import image4 from '../photos/painter4.jpg';  
+
+
+import image5 from '../photos/painter2.jpg';  
+import image6 from '../photos/paintrer6.jpg';  
+
+import image7 from '../photos/painter7.jpg';  
+ 
 
 const About = () => {
 
@@ -13,16 +26,16 @@ const About = () => {
     function scrollLeft() {
         const scrollContainer = document.querySelector('.painters-scroll');
         scrollContainer.scrollBy({
-            left: -200, // Adjust the scroll amount as needed
-            behavior: 'smooth', // Add smooth scrolling effect
+            left: -200,  
+            behavior: 'smooth',  
         });
     }
 
     function scrollRight() {
         const scrollContainer = document.querySelector('.painters-scroll');
         scrollContainer.scrollBy({
-            left: 200, // Adjust the scroll amount as needed
-            behavior: 'smooth', // Add smooth scrolling effect
+            left: 200,  
+            behavior: 'smooth',  
         });
     }
 
@@ -34,14 +47,14 @@ const About = () => {
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src={image1}
+                        src={imagei1}
                         alt="First slide"
                     />
                 </Carousel.Item>
                 <Carousel.Item>
                     <img
                         className="d-block w-100"
-                        src={image2}
+                        src={imagei1}
                         alt="Second slide"
                     />
                 </Carousel.Item>
@@ -102,23 +115,23 @@ const About = () => {
                 <p className="painter-name">Painter 2</p>
             </div>
             <div className="painter-item">
-                <img src={image1} alt="Painter 3" className="circle-image small-image" />
+                <img src={image3} alt="Painter 3" className="circle-image small-image" />
                 <p className="painter-name">Painter 3</p>
             </div>
             <div className="painter-item">
-                <img src={image1} alt="Painter 4" className="circle-image small-image" />
+                <img src={image4} alt="Painter 4" className="circle-image small-image" />
                 <p className="painter-name">Painter 4</p>
             </div>
             <div className="painter-item">
-                <img src={image1} alt="Painter 5" className="circle-image small-image" />
+                <img src={image5} alt="Painter 5" className="circle-image small-image" />
                 <p className="painter-name">Painter 5</p>
             </div>
             <div className="painter-item">
-                <img src={image1} alt="Painter 6" className="circle-image small-image" />
+                <img src={image6} alt="Painter 6" className="circle-image small-image" />
                 <p className="painter-name">Painter 6</p>
             </div>
             <div className="painter-item">
-                <img src={image1} alt="Painter 7" className="circle-image small-image" />
+                <img src={image7} alt="Painter 7" className="circle-image small-image" />
                 <p className="painter-name">Painter 7</p>
             </div>
             <div className="scroll-arrow-right" onClick={scrollRight}><FontAwesomeIcon icon={faAngleRight} /> </div>
