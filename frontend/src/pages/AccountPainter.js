@@ -5,13 +5,13 @@ import './css/AccountPainter.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import photo2 from '../photos/kkkkk.jpg';
-
-
+ 
+ 
 
 const AccountPainter = () => {
     const [formData, setFormData] = useState({
         name: '',
-        image: null,
+        image: '',
         genre: '',
         price: '',
         about_paint: ''
@@ -20,8 +20,6 @@ const AccountPainter = () => {
     const [editId, setEditId] = useState(null);
     const [painterDetails, setPainterDetails] = useState({});
     const [editingDetails, setEditingDetails] = useState(false);
-
- 
 
     const fetchPainterPictures = async () => {
         try {
@@ -38,8 +36,8 @@ const AccountPainter = () => {
 
     useEffect(() => {
         fetchPainterPictures();
-    }, [painterPictures]); // Trigger fetchPainterPictures when painterPictures change
-
+        fetchPainterDetails();
+    }, []); 
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -76,7 +74,7 @@ const AccountPainter = () => {
             window.alert('Picture ' + (editId ? 'updated' : 'sent') + ' successfully!');
             setFormData({
                 name: '',
-                image: null,
+                image: '',
                 genre: '',
                 price: '',
                 about_paint: ''
@@ -89,7 +87,6 @@ const AccountPainter = () => {
             // Handle error
         }
     };
-
 
     const handleSaveDetails = async () => {
         try {
@@ -112,7 +109,6 @@ const AccountPainter = () => {
         }
     };
     
-
     const handleDelete = async (id) => {
         try {
             await axios.delete(`http://localhost:8000/api/paintings/${id}/`, {
@@ -142,7 +138,6 @@ const AccountPainter = () => {
         setEditingDetails(true);
     };
 
-
     const fetchPainterDetails = async () => {
         try {
             const response = await axios.get('http://localhost:8000/api/get_user_account_details/', {
@@ -156,8 +151,6 @@ const AccountPainter = () => {
         }
     };
     
- 
-
     const handleCloseModal = () => {
         setFormData({
             name: '',
@@ -169,14 +162,17 @@ const AccountPainter = () => {
         setEditId(null);
     };
 
+
+    
+
     return (
         <div className="container">
             <div className="row">
                 <div className="col-md-6">
-                    <div className="account-painter-section">
-                        <div className="form-group"  >
-                            {/* <img src={painterDetails.image} alt="Painter" className="painter-image" /> */}
+                    <div className="account-painter-sectionn">
+                        <div className="form-group">
                             <img src={photo2} alt="Painter 6" className="circle-image small-image" />
+                            {/* {painterDetails.image && <img src={painterDetails.image} alt="Painter" className="circle-image small-image" />} */}
                         </div>
                         <div className="form-group">
                             <label htmlFor="name">Name:</label>
@@ -185,8 +181,6 @@ const AccountPainter = () => {
                         <div className="form-group">
                             <label htmlFor="about">About:</label>
                             <textarea id="about" value={painterDetails.AboutPainter} className="form-control" placeholder="About" readOnly={!editingDetails} onChange={(e) => setPainterDetails({ ...painterDetails, AboutPainter: e.target.value })}></textarea>
-
-                        
                         </div>
                         <div className="form-group">
                             <label htmlFor="experience">Work Experience:</label>
@@ -267,4 +261,7 @@ const AccountPainter = () => {
 };
 
 export default AccountPainter;
-  
+
+
+
+ 

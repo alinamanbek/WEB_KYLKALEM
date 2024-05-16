@@ -17,7 +17,7 @@
       .info-container {
         flex: 1;
         order: 2;
-        text-align: center;
+        text-align: start;
       }
       
       .painting-image {
@@ -30,7 +30,7 @@
       .add-to-basket-button {
         padding: 12px 24px;
         font-size: 16px;
-        background-color: #007bff;
+        background-color: #f3b7b8;
         color: #fff;
         border: none;
         border-radius: 5px;
@@ -39,7 +39,7 @@
       }
       
       .add-to-basket-button:hover {
-        background-color: #0056b3;
+        background-color: #f3b7b8;
       }
       
       .error {
@@ -51,30 +51,3 @@
         color: #666;
       }
       
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 

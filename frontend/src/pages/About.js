@@ -5,7 +5,7 @@ import './css/About.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 import photo2 from '../photos/2.png';
-import imagei1 from '../photos/shyrdak.jpg'; 
+import imagei1 from '../photos/aboutt.png'; 
 
 import image1 from '../photos/painter1.jpg';  
 import image2 from '../photos/painter5.jpg';  
@@ -69,7 +69,9 @@ const About = () => {
     {/* Left side text */}
     <div className="left-side-text">
         <p style={{ fontFamily: 'Frank Ruhl Libre' }}>
-            The "Erkindik" Gallery, nestled in the shady alley between Ala-Too Square and Oak Park, is often referred to as Bishkek's Arbat or Vernissage. Here, one can explore paintings by local artists, showcasing a riot of colors and a diversity of styles. Visitors have the opportunity to commission new artworks of any genre, while portraits are crafted in mere minutes. This artistic haven reflects the vibrant culture and creativity of Bishkek, inviting patrons to immerse themselves in the beauty of local talent and the dynamic art scene.
+        Step into the enchanting world of Kyl Kalem Gallery of Art, where creativity knows no bounds and every brushstroke carries the weight of a thousand emotions. Nestled at the heart of artistic expression, our gallery is more than just a space for showcasing paintings – it's a sanctuary for the soul, a haven for art enthusiasts, and a testament to the power of imagination.
+At Kyl Kalem, we curate a diverse collection of paintings that span a myriad of styles, themes, and genres. From vibrant landscapes that evoke a sense of wanderlust to captivating portraits that capture the essence of the human spirit, each artwork on display is a masterpiece in its own right, waiting to be discovered and cherished.But our gallery is not just about admiring art from afar – it's about experiencing it firsthand. Whether you're a seasoned collector or a curious newcomer, our knowledgeable staff are here to guide you on a journey of exploration, offering insights into the stories behind each painting and the techniques used to bring them to life.
+And for those seeking to bring a piece of beauty into their own homes, Kyl Kalem offers a seamless purchasing experience, with a wide range of artworks available for sale. Whether you're looking to add a touch of elegance to your living room or seeking a statement piece for your office, our collection has something to suit every taste and style.
         </p>
    
    
@@ -82,19 +84,19 @@ const About = () => {
 </div>
 
 {/* Second section */}
-<div className="two-part-division">
-    {/* Left side photo */}
+{/* <div className="two-part-division">
+ 
     <div className="left-side-photo">
         <img src={photo2} alt="2nd" width="470" height="350" />
-    </div>
+    </div> */}
 
-    {/* Right side text */}
+{/*    
     <div className="right-side-text">
         <p style={{ fontFamily: 'Frank Ruhl Libre' }}>
             Add your text here...
         </p>
     </div>
-</div>
+</div> */}
 
 
 <div className="painters_text">

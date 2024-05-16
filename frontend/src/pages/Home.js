@@ -4,7 +4,9 @@ import axios from 'axios';
 import './css/Home.css';
 import { Link } from 'react-router-dom';
 import image3 from '../photos/shyrdak.jpg';
-import photo2 from '../photos/2.png';
+import photo2 from '../photos/KYLKALEM.jpg';
+import photo3 from '../photos/burkt.png';
+import photo4 from '../photos/kuz.png';
 
 const HomePaintCard = ({ paint }) => {
     return (
@@ -71,14 +73,15 @@ const Home = () => {
             <div className="home-two-part-division">
                 {/* Left side photo */}
                 <div className="home-left-side-photo">
-                    <img src={photo2} alt="2nd" width="470" height="350" />
+                    <img src={photo3} alt="2nd" width="470" height="350" />
                 </div>
 
                 {/* Right side text */}
                 <div className="home-right-side-text">
                     <p style={{ fontFamily: 'Frank Ruhl Libre' }}>
-                        Add your text here...
+                    More than just a gallery, we're a cultural hub, a sanctuary for creativity in the heart of Bishkek. Join us and immerse yourself in the vibrant energy of our city's dynamic art scene. Whether you're a seasoned art aficionado or simply curious to explore, there's something here for everyoneBut "Erkindik" Gallery is more than just a showcase of talent – it's a living, breathing space where art comes to life. With a nod to the storied history of art, our skilled artisans draw inspiration from centuries of artistic traditions, infusing each creation with a timeless allure that transcends borders and generations..
                     </p>
+                    <Link to="/about" className="home-read-more">Read</Link>
                 </div>
             </div>
 
@@ -87,7 +90,9 @@ const Home = () => {
                 {/* Left side text */}
                 <div className="home-left-side-text">
                     <p style={{ fontFamily: 'Frank Ruhl Libre' }}>
-                        Add your text here...
+                    Whether you're seeking to commission a custom piece or longing for a spontaneous portrait, our skilled artisans are ready to turn your dreams into tangible works of art, right before your eyes.
+
+Step inside and immerse yourself in the rich tapestry of Bishkek's cultural landscape, where the past, present, and future of art converge in a symphony of creativity. Whether you're a seasoned art enthusiast or a curious newcomer, our doors are open, inviting you to explore, engage, and experience the magic of local creativity.
                     </p>
                     {/* Read more link */}
                     <Link to="/about" className="home-read-more">Read</Link>
@@ -95,11 +100,15 @@ const Home = () => {
 
                 {/* Right side photo */}
                 <div className="home-right-side-photo">
-                    <img src={photo2} alt="2nd" width="470" height="350" />
+                    <img src={photo4} alt="2nd" width="470" height="350" />
                 </div>
             </div>
 
             <div className="home-paint-cards-container">
+
+            <div className="home-new-paints">
+                <h2 style={{ fontFamily: 'Frank Ruhl Libre' }}>NEW PAINTS</h2>
+            </div>
  
   <div className="home-paint-rows-container">
     {paintings.map((paint, index) => (
@@ -112,9 +121,6 @@ const Home = () => {
   </div>
 </div>
 
-            
-            {/* Link to more paintings */}
-            <Link to="/catalog" className="home-more-link">More</Link>
         </div>
     );
 }

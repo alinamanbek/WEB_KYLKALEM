@@ -1,66 +1,124 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import './css/Basket.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios'; 
 
 const Basket = ({ basket, removeFromBasket }) => {
-    const handleRemove = (index) => {
-        removeFromBasket(index);
+    const navigate = useNavigate();
+    const [error, setError] = useState('');
+    const [messages, setMessages] = useState({});
+
+    const handleOrder = async (painterId) => {
+        try {
+            if (!painterId) {
+                setError('Painter ID is not defined');
+                return;
+            }
+
+            if (basket.length === 0) {
+                setError('Cannot place order: Basket is empty');
+                return;
+            }
+
+            const selectedPainting = basket[0];
+
+            if (!selectedPainting) {
+                setError('Selected painting is undefined');
+                return;
+            }
+
+            const selectedPaintingId = selectedPainting.id;
+            const customerId = localStorage.getItem('customerId');
+
+            if (!customerId) {
+                setError('Customer ID is invalid');
+                return;
+            }
+
+            const customerMessage = messages[painterId];
+
+            const orderData = {
+                painting: selectedPaintingId,
+                customer: customerId,
+                painter: painterId,
+                status: 'pending',
+                message: customerMessage || '',
+            };
+
+            const orderResponse = await axios.post(`${process.env.REACT_APP_API_URL}/orders/`, orderData);
+
+            console.log('Order placed successfully:', orderResponse.data);
+            removeFromBasket(selectedPaintingId);
+            navigate('/basket');
+        
+            alert('Successfully sent! Our painter will contact with you.');
+        } catch (error) {
+            console.error('Failed to place order:', error);
+            setError('Failed to place order. Please try again later.');
+        }
     };
 
-    const handleOrder = async () => {
-      try {
-          if (basket.length === 0) {
-              console.error('Cannot place order: Basket is empty');
-              return;
-          }
-  
-          const selectedPaintingId = basket[0].id; // Select the first painting from the basket
-          
-          const customerId = 1; // Replace with actual customer ID
-          const painterId = 1; // Replace with actual painter ID
-          const status = 'pending'; // Replace with actual status
-          
-          const orderData = {
-              painting: selectedPaintingId, // Provide the primary key of the selected painting
-              customer: customerId,
-              painter: painterId,
-              status: status
-          };
-          
-          const response = await axios.post('http://localhost:8000/orders/', orderData);
-          console.log('Order placed successfully:', response.data);
-      } catch (error) {
-          console.error('Failed to place order:', error);
-      }
-  };
-  
+    const handleInputChange = (painterId, message) => {
+        setMessages(prevMessages => ({
+            ...prevMessages,
+            [painterId]: message
+        }));
+    };
+
+    const handleRemove = (paintingId) => {
+        removeFromBasket(paintingId);
+    };
+
+    const renderBasketItems = () => {
+        const groupedPaintings = {};
+        basket.forEach(painting => {
+            if (!groupedPaintings[painting.painter_id]) {
+                groupedPaintings[painting.painter_id] = [];
+            }
+            groupedPaintings[painting.painter_id].push(painting);
+        });
+
+
+        return Object.entries(groupedPaintings).map(([painterId, paintings]) => (
+            <div key={painterId} className="painter-group">
+  <h3 className="painter-name">Painter: {paintings[0].painter_name}</h3>
+  <div className="paintings-container">
+    {paintings.map((painting, index) => (
+      <div key={index} className="painting-item">
+        <div className="painting-content">
+          <img src={`http://localhost:8000${painting.image}`} alt={painting.name} className="painting-item-image" />
+          <div className="painting-details">
+            <p className="painting-name">{painting.name}</p>
+            <p className="painting-cost">{painting.price}</p>
+          </div>
+        </div>
+        <button className="remove-button" onClick={() => handleRemove(painting.id)}>Remove</button>
+      </div>
+    ))}
+  </div>
+  <div className="message-order-container">
+    <div className="message-input">
+      <textarea
+        className="message-textarea"
+        placeholder="Add your phone number"
+        value={messages[painterId] || ''}
+        onChange={(e) => handleInputChange(painterId, e.target.value)}
+      ></textarea>
+    </div>
+    <button className="order-button" onClick={() => handleOrder(painterId)}>Order</button>
+  </div>
+</div>
+
+        ));
+    };
 
     return (
-        <div className="basket-page">
+        <div className="basket-container">
             <h2 className="basket-heading">Your Basket</h2>
             <div className="basket-items">
-                {basket && basket.length > 0 ? (
-                    basket.map((painting, index) => (
-                        <div key={index} className="basket-item">
-                            <img src={`http://localhost:8000${painting.image}`} alt={painting.name} className="basket-item-image" />
-                            <div className="basket-item-details">
-                                <p className="basket-item-name">{painting.name}</p>
-                                <p className="basket-item-price">${painting.price}</p>
-                            </div>
-                            <button className="remove-item-button" onClick={() => handleRemove(index)}>
-                                <FontAwesomeIcon icon={faTimes} className="remove-icon" />
-                            </button>
-                        </div>
-                    ))
-                ) : (
-                    <p className="empty-basket-message">Your basket is empty.</p>
-                )}
+                {basket.length > 0 ? renderBasketItems() : <p className="empty-basket-message">Your basket is empty.</p>}
             </div>
-            {basket.length > 0 && (
-                <button className="order-button" onClick={handleOrder}>Order</button>
-            )}
+            {error && <div className="error-message">{error}</div>}
         </div>
     );
 };

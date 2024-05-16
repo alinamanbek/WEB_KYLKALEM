@@ -10,7 +10,8 @@ class AdminSerializer(serializers.ModelSerializer):
 class PainterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Painter
-        fields = ['name', 'image', 'AboutPainter', 'workExperience', 'education']
+        fields = '__all__'
+
 
 class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,8 +26,7 @@ class PaintSerializer(serializers.ModelSerializer):
         model = Paint
         fields = ['id', 'name', 'image', 'genre', 'price', 'about_paint', 'painter_name']
 
-
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ['id', 'painting', 'customer', 'painter', 'status', 'created_at', 'message']

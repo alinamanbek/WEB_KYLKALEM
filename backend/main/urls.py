@@ -15,8 +15,12 @@ from .views import (
     get_user_account_details,
     edit_user_account_details,
     get_painting_detail,
-   OrderCreateAPIView, 
-   OrderRetrieveUpdateDestroyAPIView,
+    create_order,
+    fetch_customer_orders,
+    clear_order_history,
+    fetch_painter_orders,
+    delete_order,
+#    UpdateOrderStatus,
      
 )
 
@@ -34,8 +38,16 @@ urlpatterns = [
     path('api/get_user_account_details/', get_user_account_details, name='get_user_account_details'),
     path('api/edit_user_account_details/', edit_user_account_details, name='edit_user_account_details'),
     path('api/detail/<int:pk>/', get_painting_detail, name='painting_detail'),
-    path('orders/', OrderCreateAPIView.as_view(), name='order-list-create'),
-    path('orders/<int:pk>/', OrderRetrieveUpdateDestroyAPIView.as_view(), name='order-detail'),
+    path('orders/', create_order, name='create_order'),
+    path('api/fetch_customer_orders/', fetch_customer_orders, name='fetch_customer_orders'),   
+    path('api/fetch_customer_orders/<int:customer_id>/', fetch_customer_orders, name='fetch_customer_orders_with_id'),  
+    path('api/clear_order_history/<int:customer_id>/', clear_order_history, name='clear_order_history'),
+    path('api/orders/<int:order_id>/', delete_order, name='delete_order'),
+   
+    path('api/fetch_painter_orders/<int:painter_id>/', fetch_painter_orders, name='fetch_painter_orders'),
+
+
+
      
 
 ]

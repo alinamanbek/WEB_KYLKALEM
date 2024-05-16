@@ -14,7 +14,8 @@ class Painter(models.Model):
     AboutPainter = models.TextField()
     workExperience = models.TextField()
     education = models.TextField()
-    name = models.TextField()    
+    name = models.TextField()   
+    orders = models.JSONField(default=list) 
  
     
 class Customer(models.Model):
@@ -23,6 +24,7 @@ class Customer(models.Model):
     name = models.TextField()
     created_time = models.DateTimeField(auto_now_add=True)
     phone_number = models.CharField(max_length=20)
+    my_orders = models.JSONField(default=list)
 
 class Paint(models.Model):
     
@@ -40,6 +42,5 @@ class Order(models.Model):
     painter = models.ForeignKey(Painter, on_delete=models.CASCADE)
     status = models.CharField(max_length=50)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-
+    message = models.TextField(250)
  

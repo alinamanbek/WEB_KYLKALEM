@@ -1,4 +1,3 @@
- 
 import React from 'react';
 import { Link } from 'react-router-dom';
 import image4 from '../photos/kyl.png';
@@ -19,20 +18,21 @@ const MenuBar = ({ isLoggedIn, basket }) => {
                         <li><Link to="/about">About</Link></li>
                         <li><Link to="/catalog">Catalog</Link></li>
                        
-                        {/* Conditional rendering based on user type */}
                         {isLoggedIn && userType === 'painter' && (
                             <>
                                 <li><Link to="/account_painter">Account</Link></li>
+                                <li><Link to="api/fetch_painter_orders/">Orders</Link></li>
                                 <li><Link to="/logout">Logout</Link></li>
                             </>
                         )}
                         {isLoggedIn && userType === 'customer' && (
                             <>
                                 <li><Link to={{ pathname: "/basket", state: { basket } }}>Basket</Link></li>
+                                <li><Link to="/account_customer">Account</Link></li>
                                 <li><Link to="/logout">Logout</Link></li>
+                               
                             </>
                         )}
-                        {/* Default menu items for unauthenticated users */}
                         {!isLoggedIn && (
                             <>
                                 <li><Link to="/register">Signup</Link></li>

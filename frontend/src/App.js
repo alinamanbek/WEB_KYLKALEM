@@ -1,3 +1,73 @@
+// import React, { useState } from 'react';
+// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+// import MenuBar from './components/MenuBar';
+// import Footer from './components/Footer';
+// import Home from './pages/Home';
+// import About from './pages/About';
+// import Catalog from './pages/Catalog';
+// import Login from './pages/Login';
+// import Signup from './pages/Signup';
+// import Logout from './pages/Logout';
+// import Basket from './pages/Basket';
+// import AccountPainter from './pages/AccountPainter';
+// import AccountCustomer from './pages/AccountCostumer';
+// import AccountAdmin from './pages/AccountAdmin';
+// import NotFound from './pages/NotFound';
+// import DetailView from './pages/DetailView';
+
+// import 'bootstrap/dist/css/bootstrap.min.css';
+
+// function App() {
+//   const [isLoggedIn, setIsLoggedIn] = useState(false);
+//   const [customerId, setCustomerId] = useState(null);
+//   const [basket, setBasket] = useState([]);
+//   const [basketItemCount, setBasketItemCount] = useState(0); // Track basket item count
+
+//   const addToBasket = (painting) => {
+//     setBasket((prevBasket) => [...prevBasket, painting]);
+//     setBasketItemCount((prevCount) => prevCount + 1); // Increment item count
+//   };
+
+//   const removeFromBasket = (indexToRemove) => {
+//     setBasket((prevBasket) =>
+//       prevBasket.filter((_, index) => index !== indexToRemove)
+//     );
+//     setBasketItemCount((prevCount) => prevCount - 1); // Decrement item count
+//   };
+
+//   return (
+//     <Router>
+//       <MenuBar isLoggedIn={isLoggedIn} basketItemCount={basketItemCount} /> {/* Pass basketItemCount */}
+//       <Routes>
+//         <Route path="/about" element={<About />} />
+//         <Route path="/catalog" element={<Catalog />} />
+//         <Route
+//           path="/login"
+//           element={<Login setIsLoggedIn={setIsLoggedIn} setCustomerId={setCustomerId} />}
+//         />
+//         <Route path="/register" element={<Signup />} />
+//         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
+//         <Route
+//           path="/basket"
+//           element={<Basket customerId={customerId} basket={basket} removeFromBasket={removeFromBasket} />}
+//         />
+//         <Route path="/account_painter" element={<AccountPainter />} />
+//         <Route path="/account_customer" element={<AccountCustomer />} />
+//         <Route path="/account_admin" element={<AccountAdmin />} />
+//         <Route path="/home" element={<Home />} />
+//         <Route
+//           path="/detail/:id"
+//           element={<DetailView addToBasket={addToBasket} />} 
+//         />
+//         <Route path="*" element={<NotFound />} />
+//       </Routes>
+//       <Footer />
+//     </Router>
+//   );
+// }
+
+// export default App;
+
 
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
@@ -11,44 +81,50 @@ import Signup from './pages/Signup';
 import Logout from './pages/Logout';
 import Basket from './pages/Basket';
 import AccountPainter from './pages/AccountPainter';
-import AccountCustomer from './pages/AccountCostumer'; // Typo in component name corrected
+import AccountCustomer from './pages/AccountCostumer';
 import AccountAdmin from './pages/AccountAdmin';
 import NotFound from './pages/NotFound';
 import DetailView from './pages/DetailView';
+import Orders from './pages/Orders';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [customerId, setCustomerId] = useState(null); // Added customerId state
+  const [customerId, setCustomerId] = useState(null);
   const [basket, setBasket] = useState([]);
-
+  const [basketItemCount, setBasketItemCount] = useState(0); // Track basket item count
 
   const addToBasket = (painting) => {
-    setBasket(prevBasket => [...prevBasket, painting]);
-};
+    setBasket((prevBasket) => [...prevBasket, painting]);
+    setBasketItemCount((prevCount) => prevCount + 1); // Increment item count
+  };
 
-const removeFromBasket = (indexToRemove) => {
-  setBasket(prevBasket => prevBasket.filter((_, index) => index !== indexToRemove));
+  const removeFromBasket = (paintingId) => {
+    setBasket((prevBasket) =>
+        prevBasket.filter((painting) => painting.id !== paintingId)
+    );
+    setBasketItemCount((prevCount) => prevCount - 1); // Decrement item count
 };
 
   return (
     <Router>
-      <MenuBar isLoggedIn={isLoggedIn} />
+      <MenuBar isLoggedIn={isLoggedIn} basketItemCount={basketItemCount} /> {/* Pass basketItemCount */}
       <Routes>
         <Route path="/about" element={<About />} />
         <Route path="/catalog" element={<Catalog />} />
         <Route
           path="/login"
-          element={<Login setIsLoggedIn={setIsLoggedIn} setCustomerId={setCustomerId} />} // Pass setCustomerId as prop
+          element={<Login setIsLoggedIn={setIsLoggedIn} setCustomerId={setCustomerId} />}
         />
         <Route path="/register" element={<Signup />} />
         <Route path="/logout" element={<Logout setIsLoggedIn={setIsLoggedIn} />} />
-       <Route
+        <Route
           path="/basket"
           element={<Basket customerId={customerId} basket={basket} removeFromBasket={removeFromBasket} />}
         />
         <Route path="/account_painter" element={<AccountPainter />} />
+        <Route path="/api/fetch_painter_orders/" element={<Orders />} />
         <Route path="/account_customer" element={<AccountCustomer />} />
         <Route path="/account_admin" element={<AccountAdmin />} />
         <Route path="/home" element={<Home />} />

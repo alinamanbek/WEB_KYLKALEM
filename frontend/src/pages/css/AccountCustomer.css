@@ -1,0 +1,48 @@
+ 
+.account-customer-container {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.clear-history-button {
+    background-color: red;
+    color: white;
+    margin-bottom: 20px;
+    border: 10px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    float: right;
+}
+
+.clear-history-button:hover {
+    background-color: darkred;
+}
+
+.order-history table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+}
+
+.order-history th, .order-history td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.order-history th {
+    background-color: #f2f2f2;
+}
+
+.order-history img {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.order-history p {
+    margin-top: 20px;
+    font-style: italic;
+}

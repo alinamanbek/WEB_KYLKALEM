@@ -1,9 +1,10 @@
      /* Home.css */
 .home-container {
-  padding: 20px;
+  padding-top: 40px;
 }
 
 .home-full-screen-photo img {
+  padding-top: 0px;
   width: 100%;
   height: 70vh;
   object-fit: cover;
@@ -35,30 +36,50 @@
 }
 
 .home-right-side-text {
-  width: 40%;
+  text-align: center;
+  width: 60%;
+  margin-right: 50px;
 }
-
-
-
-
-
-
-
-
 
 .home-paint-cards-container {
   margin-top: 100px;
   margin-bottom: 100px;
-  
+  border: 1px solid rgb(255, 255, 255);  
+
 }
+.home-new-paints{
+  text-align: center;
+  margin-bottom: 50px;
+  margin-top: 150px;
+  
 
 
+}
+.home-paint-card-link{
+  border: 1px solid rgb(255, 255, 255);
+}
 .home-paint-rows-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center; 
+  margin-top: 10px;
+  
+}
+.home-paint-details {
+  font-family: 'Frank Ruhl Libre', sans-serif;
+  color: black;
+  margin-left: 10px;
 }
 
+.home-paint-details h3 {
+  font-size: 16px;
+  /* margin-left: 10px;  */
+}
+
+.home-paint-details p {
+  font-size: 13px;
+  margin: 0; /* Remove default margin */
+}
 /* .home-paint-card {
   margin: 20px;
   width: calc(33.33% - 40px);
@@ -85,6 +106,7 @@
   height: auto;
   object-fit: cover;
   transition: transform 0.3s ease;
+  border: 8px;
 }
 
 
