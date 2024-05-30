@@ -93,4 +93,6 @@ const DetailView = ({ addToBasket }) => {
 };
 
 export default DetailView;
+
+
  
