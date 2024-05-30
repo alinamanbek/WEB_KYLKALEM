@@ -1,6 +1,7 @@
 /* AccountPainter.css */
 .account-painter-container {
     padding: 20px;
+    font-family: 'Frank Ruhl Libre', sans-serif;
 }
 
 .heading {
@@ -29,13 +30,24 @@
     text-align: center;
 }
 
+.account_img {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+   
+}
+
+ 
 .picture-table td {
     text-align: center;
 }
 
 .delete-button {
     cursor: pointer;
-    color: red;
+    background-color:#e57373;
+}
+.delete-button:hover {
+    background-color: #f3b7b8;
 }
 
 .picture-container {
@@ -51,23 +63,57 @@
 
 .account-painter-section {
     margin-bottom: 70px;  
-    background-color: #E9E4D8;
-    padding: 20px; 
-}
-.account-painter-sectionn {
-    border: 10px solid #e0d7d7;  
+    background-color:  #d7ecf4;  
+
+    /* background-color: #f0f0f0; */
+    padding: 20px;
     border-radius: 10px;
-    background-color: #e0d7d7;
+    border: 10px solid #b7deec; 
+    /* border: 2px solid #808080; */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.account-painter-sectionn {
+    border: 10px solid #b7deec;  
+    /* border: 2px solid #808080; */
+    border-radius: 10px;
+    background-color:d #b7deec;  
     padding: 20px; 
     margin-bottom: 100px;  
      
   }
   
-  .btn-primary {
-    margin-top: 0px;
-    color: green; 
+  .btn-green {
+    width: 70px;
+    height: 40px;
+    margin-right: 10px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+     
+  }
+  .btn-green:hover {
+    background-color: #45a049;
   }
   
+  .btn-clear {
+    width: 70px;
+    height: 40px;
+    margin-right: 10px;
+    background-color:  #e57373;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+     
+  }
+  .btn-clear:hover {
+    background-color: #f3b7b8;
+  }
+
+
 
 .heading {
     font-family: 'Lora', serif;
@@ -99,7 +145,7 @@
 }
 
 .order-table th {
-    background-color: #F2ECE1; /* Optional: Add background color for table header */
+    background-color: d #b7deec;   /* Optional: Add background color for table header */
 }
 
 .order-table img {
@@ -110,4 +156,14 @@
 /* Optional: Add hover effect to table rows */
 .order-table tbody tr:hover {
     background-color: #FFF8E8;
+}
+
+
+@media (min-width: 768px) {
+    .container, 
+    .container-md, 
+    .container-sm {
+        padding-top: 30px;
+        max-width: 720px;
+    }
 }

@@ -67,7 +67,7 @@ const AccountCustomer = ({ isLoggedIn }) => {
 
     return (
         <div className="account-customer-container">
-            <h2>Order History</h2>
+            <h2>Orders History</h2>
             <button className="clear-history-button" onClick={handleClearHistory}>Clear History</button>
             <div className="order-history">
                 {orders.length > 0 ? (

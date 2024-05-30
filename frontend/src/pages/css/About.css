@@ -52,11 +52,11 @@
 }
 
 .small-image {
-    height: 150px;  
-    width: 150px;
+    height: 180px;  
+    width: 180px;
     border-radius: 50%;
     object-fit: cover;
-    margin-right: 70px; 
+    padding: 10px;  
     transition: box-shadow 0.3s; 
 }
 
@@ -91,4 +91,13 @@
     text-align: center; /* Center text horizontally */
     margin-bottom: 50px;
     margin-top: 80px;
+}
+
+
+
+svg:not(:root).svg-inline--fa, 
+svg:not(:host).svg-inline--fa {
+    overflow: visible;
+    box-sizing: content-box;
+    color: rgb(172, 167, 167);  /* This sets the color of the SVG to red */
 }

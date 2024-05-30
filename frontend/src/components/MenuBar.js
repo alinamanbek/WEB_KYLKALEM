@@ -28,7 +28,8 @@ const MenuBar = ({ isLoggedIn, basket }) => {
                         {isLoggedIn && userType === 'customer' && (
                             <>
                                 <li><Link to={{ pathname: "/basket", state: { basket } }}>Basket</Link></li>
-                                <li><Link to="/account_customer">Account</Link></li>
+                                {/* <li><Link to="/account_customer">Account</Link></li> */}
+                                <li><Link to="/account_customer">Orders</Link></li>
                                 <li><Link to="/logout">Logout</Link></li>
                                
                             </>

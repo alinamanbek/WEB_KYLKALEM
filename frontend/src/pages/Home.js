@@ -107,7 +107,7 @@ Step inside and immerse yourself in the rich tapestry of Bishkek's cultural land
             <div className="home-paint-cards-container">
 
             <div className="home-new-paints">
-                <h2 style={{ fontFamily: 'Frank Ruhl Libre' }}>NEW PAINTS</h2>
+                    <h2 style={{ fontFamily: 'Frank Ruhl Libre' }}>NEW ARRIVALS</h2>
             </div>
  
   <div className="home-paint-rows-container">

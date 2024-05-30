@@ -58,7 +58,7 @@ const Orders = () => {
 
   return (
     <div>
-      <h1 className="page-title">{painterName ? `Welcome😊 ${painterName}` : 'Orders Page'}</h1>
+      <h1 className="page-title">{painterName ? `${painterName}'s orders` : 'Orders Page'}</h1>
       {/* <h2>Painter Orders:</h2> */}
       <table className="order-table table">
         <thead>

@@ -1,13 +1,14 @@
- 
 .account-customer-container {
-    font-family: Arial, sans-serif;
+    font-family: 'Frank Ruhl Libre', sans-serif;
     max-width: 800px;
     margin: 0 auto;
     padding: 20px;
-}
+    
+} 
 
+ 
 .clear-history-button {
-    background-color: red;
+    background-color:#e57373;
     color: white;
     margin-bottom: 20px;
     border: 10px;
@@ -15,13 +16,14 @@
     border-radius: 5px;
     cursor: pointer;
     float: right;
-}
-
+} 
+ 
 .clear-history-button:hover {
-    background-color: darkred;
+    background-color: #f3b7b8;
 }
 
 .order-history table {
+  
     width: 100%;
     border-collapse: collapse;
     margin-top: 30px;
@@ -43,6 +45,7 @@
 }
 
 .order-history p {
-    margin-top: 20px;
+    margin-top: 30px;
     font-style: italic;
 }
+ 

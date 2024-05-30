@@ -171,7 +171,7 @@ const AccountPainter = () => {
                 <div className="col-md-6">
                     <div className="account-painter-sectionn">
                         <div className="form-group">
-                            <img src={photo2} alt="Painter 6" className="circle-image small-image" />
+                            <img src={photo2} alt="Painter 6" className="account_img" />
                             {/* {painterDetails.image && <img src={painterDetails.image} alt="Painter" className="circle-image small-image" />} */}
                         </div>
                         <div className="form-group">
@@ -191,9 +191,9 @@ const AccountPainter = () => {
                             <textarea id="education" value={painterDetails.education} className="form-control" placeholder="Education" readOnly={!editingDetails} onChange={(e) => setPainterDetails({ ...painterDetails, education: e.target.value })}></textarea>
                         </div>
                         {editingDetails ? (
-                            <button type="button" className="btn btn-primary" onClick={handleSaveDetails}>Save</button>
+                            <button type="button" className="btn-green" onClick={handleSaveDetails}>Save</button>
                         ) : (
-                            <button type="button" className="btn btn-primary" onClick={handleEditDetails}>Edit Details</button>
+                            <button type="button" className="btn-clear" onClick={handleEditDetails}>Edit</button>
                         )}
                     </div>
                 </div>
@@ -217,8 +217,8 @@ const AccountPainter = () => {
                                 <div className="form-group">
                                     <input type="text" name="about_paint" value={formData.about_paint} className="form-control" placeholder="About Paint" onChange={handleChange} />
                                 </div>
-                                <button type="submit" className="btn btn-primary">{editId ? 'Update' : 'Submit'}</button>
-                                <button type="button" className="btn btn-secondary" onClick={handleCloseModal}>{editId ? 'Cancel' : 'Clear'}</button>
+                                <button type="submit" className="btn-green">{editId ? 'Update' : 'Submit'}</button>
+                                <button type="button" className="btn-clear" onClick={handleCloseModal}>{editId ? 'Cancel' : 'Clear'}</button>
                             </form>
                         </div>
                     </div>

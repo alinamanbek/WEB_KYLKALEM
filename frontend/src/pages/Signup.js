@@ -29,15 +29,68 @@ const Signup = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   // Check if the password meets the required criteria
+  //   if (!isPasswordStrong(formData.password)) {
+  //     setErrorMessage('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
+  //     return;
+  //   }
+
+  //   try {
+  //     // Gather additional data based on user type
+  //     let additionalData = {};
+  //     if (formData.user_type === 'painter') {
+  //       additionalData = {
+  //         image: formData.image,
+  //         AboutPainter: formData.AboutPainter,
+  //         workExperience: formData.workExperience,
+  //         education: formData.education,
+  //         name: formData.username  // Assuming 'username' is used for painter's name
+  //       };
+  //     } else if (formData.user_type === 'customer') {
+  //       additionalData = {
+  //         name: formData.username,  // Assuming 'username' is used for customer's name
+  //         phone_number: formData.phone_number
+  //       };
+  //     }
+
+  //     const userData = { ...formData, ...additionalData };
+
+  //     const res = await axios.post('http://localhost:8000/api/register/', userData);
+  //     console.log(res.data);
+  //     setIsRegistered(true);
+  //     setErrorMessage('');
+
+  //     // Redirect to AccountDetail page after successful registration
+  //     navigate('/login', { state: { user_type: formData.user_type } });
+  //   } catch (error) {
+  //     if (error.response.status === 400) {
+  //       setErrorMessage(error.response.data.error);
+  //     } else {
+  //       console.error(error.response.data);
+  //     }
+  //   }
+  // };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     // Check if the password meets the required criteria
     if (!isPasswordStrong(formData.password)) {
       setErrorMessage('Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.');
       return;
     }
-
+  
+    // Check email format based on user type
+    const isEmailValid = formData.user_type === 'painter' ? formData.email.endsWith('@iuca.kg') : formData.email.endsWith('@gmail.com');
+    if (!isEmailValid) {
+      setErrorMessage(`Email must end with ${formData.user_type === 'painter' ? '@iuca.kg' : '@gmail.com'}`);
+      return;
+    }
+  
     try {
       // Gather additional data based on user type
       let additionalData = {};
@@ -55,14 +108,14 @@ const Signup = () => {
           phone_number: formData.phone_number
         };
       }
-
+  
       const userData = { ...formData, ...additionalData };
-
+  
       const res = await axios.post('http://localhost:8000/api/register/', userData);
       console.log(res.data);
       setIsRegistered(true);
       setErrorMessage('');
-
+  
       // Redirect to AccountDetail page after successful registration
       navigate('/login', { state: { user_type: formData.user_type } });
     } catch (error) {
@@ -73,6 +126,7 @@ const Signup = () => {
       }
     }
   };
+  
 
   const isPasswordStrong = (password) => {
     const strongRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;

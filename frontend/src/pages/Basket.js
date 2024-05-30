@@ -81,7 +81,7 @@ const Basket = ({ basket, removeFromBasket }) => {
 
         return Object.entries(groupedPaintings).map(([painterId, paintings]) => (
             <div key={painterId} className="painter-group">
-  <h3 className="painter-name">Painter: {paintings[0].painter_name}</h3>
+  <h3 className="painter-name">Painter is {paintings[0].painter_name}</h3>
   <div className="paintings-container">
     {paintings.map((painting, index) => (
       <div key={index} className="painting-item">
@@ -100,7 +100,7 @@ const Basket = ({ basket, removeFromBasket }) => {
     <div className="message-input">
       <textarea
         className="message-textarea"
-        placeholder="Add your phone number"
+        placeholder="Write your message here"
         value={messages[painterId] || ''}
         onChange={(e) => handleInputChange(painterId, e.target.value)}
       ></textarea>
